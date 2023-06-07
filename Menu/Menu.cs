@@ -11,15 +11,18 @@ namespace Senbozaki_Bank.Menu
     //Class responsável por fornecer opções iniciais para o usuário navegar pela aplicação.
     public class Menu
     {
-        static List<string> NumeroDeOpcoes = new()
+        //Lista de opções pré-definidas
+        static readonly List<string> NumeroDeOpcoes = new()
         {
             "0",
             "1",
-            "0",
-            "33"
+            "2",
+            "3"
         };
 
-        public static string? OptionInput;
+        //Campo de Armazenamento do número digitado pelo usuário
+        private static string? OptionInput;
+
 
         public static void GeracaoDeOpcoesMaster()
         {
@@ -27,8 +30,8 @@ namespace Senbozaki_Bank.Menu
             OptionInput = Console.ReadLine();
             Console.Clear();
 
-            //Tratando possível valor null
-            while (OptionInput?.Length is 0 || NumeroDeOpcoes.Contains(OptionInput) is false)
+            //Tratando possível valor null e opção não identificada
+            while (OptionInput?.Length is 0 || NumeroDeOpcoes.Contains(OptionInput!) is false)
             {
                 OpcaoInicial(false); 
                 OptionInput = Console.ReadLine();
@@ -73,10 +76,11 @@ namespace Senbozaki_Bank.Menu
 
             //Console.CursorLeft -= 4;
         }
+
+
         //Baseado na opção digitada, vamos chamar uma determinada função X
         public static void DesignacaoDeFuncao(string Option)
         {
-
             switch (Option)
             {
                 case "0":
@@ -99,7 +103,7 @@ namespace Senbozaki_Bank.Menu
                         }
                         Console.Clear();
 
-                        Financeiro.Financeiro.OpcaoInicial();
+                        Financeiro.Financeiro.OpcaoInicial(true);
                     }
                     return;
                 case "2":
