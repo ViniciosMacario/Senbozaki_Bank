@@ -1,4 +1,5 @@
-﻿using Senbozaki_Bank.Financeiro;
+﻿using Microsoft.VisualBasic.FileIO;
+using Senbozaki_Bank.Financeiro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,30 @@ namespace Senbozaki_Bank.Menu
     //Class responsável por fornecer opções iniciais para o usuário navegar pela aplicação.
     public class Menu
     {
+        static List<string> NumeroDeOpcoes = new()
+        {
+            "0",
+            "1",
+            "0",
+            "33"
+        };
+
+        public static string? OptionInput;
+
         public static void GeracaoDeOpcoesMaster()
         {
             OpcaoInicial(true);
-            var optionInput = (Console.ReadLine());
+            OptionInput = Console.ReadLine();
             Console.Clear();
 
             //Tratando possível valor null
-            while (optionInput?.Length is 0)
+            while (OptionInput?.Length is 0 || NumeroDeOpcoes.Contains(OptionInput) is false)
             {
-                OpcaoInicial(false);
-                optionInput = Console.ReadLine();
+                OpcaoInicial(false); 
+                OptionInput = Console.ReadLine();
                 Console.Clear();
             }
-
-            DesignacaoDeFuncao(optionInput!);
+            DesignacaoDeFuncao(OptionInput!);
         }
 
 
@@ -42,9 +52,9 @@ namespace Senbozaki_Bank.Menu
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("<---------------------------->");
+                Console.WriteLine("<------------------------------->");
                 Console.WriteLine("| Selecione uma opção Valida!!! |");
-                Console.WriteLine("<---------------------------->");
+                Console.WriteLine("<------------------------------->");
             }
 
             Console.ResetColor();
@@ -59,27 +69,28 @@ namespace Senbozaki_Bank.Menu
 
             //Recebendo opção escolhida do usuário
             Console.WriteLine("");
-            Console.Write("Opção:____");
-            Console.CursorLeft -= 4;
+            Console.Write("Opção:");
+
+            //Console.CursorLeft -= 4;
         }
         //Baseado na opção digitada, vamos chamar uma determinada função X
         public static void DesignacaoDeFuncao(string Option)
         {
-            var OptionInt = int.Parse(Option);
-            switch (OptionInt)
+
+            switch (Option)
             {
-                case 0:
-                    { 
+                case "0":
+                    {
                         for (int i = 5; i >= 1; i--)
                         {
                             Thread.Sleep(1000);
                             Console.WriteLine($"Fechando à aplicação em...{i} segundo(s)");
                         }
                         Console.WriteLine($"Aplicação encerrada com Sucesso!");
-                        Environment.Exit(0); 
+                        Environment.Exit(0);
                     }
                     return;
-                case 1:
+                case "1":
                     {
                         for (int i = 3; i >= 0; i--)
                         {
@@ -91,17 +102,17 @@ namespace Senbozaki_Bank.Menu
                         Financeiro.Financeiro.OpcaoInicial();
                     }
                     return;
-                case 2:
-                    { 
+                case "2":
+                    {
                         Console.WriteLine();
                     }
                     return;
-                case 3:
-                    { 
+                case "3":
+                    {
                         Console.WriteLine();
                     }
                     return;
-                default: throw new NotImplementedException($"A opção {OptionInt} não foi IMPLEMENTADA!");
+                default: throw new NotImplementedException($"A opção {Option} não foi IMPLEMENTADA!");
             }
         }
     }
