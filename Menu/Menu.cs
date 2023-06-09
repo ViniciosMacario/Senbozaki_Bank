@@ -91,7 +91,7 @@ namespace Senbozaki_Bank.Menu
                             Thread.Sleep(1000);
                             Console.WriteLine($"Fechando à aplicação em...{i} segundo(s)");
                         }
-                        Console.WriteLine($"Aplicação encerrada com Sucesso!");
+                        Console.WriteLine($"Aplicação encerrada!");
                         Environment.Exit(0);
                     }
                     return;
