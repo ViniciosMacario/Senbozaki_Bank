@@ -48,9 +48,6 @@ namespace Senbozaki_Bank.Financeiro
                 { "Atenção"   ,  "Preste Atenção no Valor informado!!"   },
             };
 
-            //if (Frases.TryGetValue(typeInformation, out string str) && str is not null)
-            //{
-            //}
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"<| {Frases[typeInformation]} |>");
             Console.WriteLine("");
@@ -67,10 +64,8 @@ namespace Senbozaki_Bank.Financeiro
             Console.WriteLine("4 - Pagar");
             Console.WriteLine("5 - Voltar");
 
-            //Recebendo opção escolhida do usuário
             Console.WriteLine("");
             Console.Write("Opção:");
-            //OptionInput = Console.ReadLine();
         }
         public static void DesignacaoDeFuncao(string Option)
         {

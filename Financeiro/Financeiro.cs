@@ -34,6 +34,5 @@ namespace Senbozaki_Bank.Financeiro
             Console.WriteLine("Pagar");
 
         }
-
     }
 }

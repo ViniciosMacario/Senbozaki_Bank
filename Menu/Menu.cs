@@ -18,7 +18,6 @@ namespace Senbozaki_Bank.Menu
             "0",
             "1",
             "2",
-            "3"
         };
 
         //Campo de Armazenamento do número digitado pelo usuário
@@ -110,11 +109,6 @@ namespace Senbozaki_Bank.Menu
                 case "2":
                     {
                         RelatorioMenu.MenuRelatorio();
-                    }
-                    return;
-                case "3":
-                    {
-                        Console.WriteLine();
                     }
                     return;
                 default: throw new NotImplementedException($"A opção {Option} não foi IMPLEMENTADA!");

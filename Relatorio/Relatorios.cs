@@ -57,7 +57,6 @@ namespace Senbozaki_Bank.Relatorio
     }
 }
 
-
 /*
  Console.WriteLine("1 - Converter Relatório para Arquivo Excel");
  Console.WriteLine("2 - Converter Relatório para Arquivo de Texto");

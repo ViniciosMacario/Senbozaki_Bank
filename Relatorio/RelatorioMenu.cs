@@ -17,7 +17,7 @@ namespace Senbozaki_Bank.Relatorio
         {
             "0",
             "1",
-            "5"
+            "2"
         };
 
 
@@ -81,7 +81,7 @@ namespace Senbozaki_Bank.Relatorio
                         RelatoriosMenu.DesignacaoDeFuncao(OptionInput!);
                     }
                     return;
-                case "5":
+                case "2":
                     {
                         for (int i = 3; i >= 1; i--)
                         {

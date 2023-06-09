@@ -1,4 +1,3 @@
-﻿
-using Senbozaki_Bank.Menu;
+﻿using Senbozaki_Bank.Menu;
 
 Menu.GeracaoDeOpcoesMaster();
