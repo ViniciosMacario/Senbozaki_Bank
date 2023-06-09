@@ -103,7 +103,7 @@ namespace Senbozaki_Bank.Menu
                         }
                         Console.Clear();
 
-                        Financeiro.Financeiro.OpcaoInicial(true);
+                        Financeiro.Financeiro.OpcaoInicial("1");
                     }
                     return;
                 case "2":

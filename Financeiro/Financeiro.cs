@@ -28,14 +28,14 @@ namespace Senbozaki_Bank.Financeiro
 
         public static void GeracaoDeOpcoesMaster()
         {
-            OpcaoInicial(true);
+            OpcaoInicial("0");
             OptionInput = Console.ReadLine();
             Console.Clear();
 
             //Tratando possível valor null e opção não identificada
             while (OptionInput?.Length is 0 || NumeroDeOpcoes.Contains(OptionInput!) is false)
             {
-                OpcaoInicial(false);
+                OpcaoInicial("Erro");
                 OptionInput = Console.ReadLine();
                 Console.Clear();
             }
@@ -43,23 +43,25 @@ namespace Senbozaki_Bank.Financeiro
         }
 
         //Menu Default
-        public static void OpcaoInicial(bool typeInformation)
+        public static void OpcaoInicial(string typeInformation)
         {
+            Dictionary<string, string> Frases = new()
+            {
+                { "0"         ,  "Seção: Seja Bem-vindo(a)"              },
+                { "1"         ,  "Seção: Financeiro"                     },
+                { "2"         ,  "Seção: Relatório"                      },
+                { "Erro"      ,  "Selecione uma opção Valida!!!"         },
+                { "Atenção"   ,  "Preste Atenção no Valor informado!!"   },
+            };
+
             //Dependendo do tipo, podemos ter Apresentação de boas vindas ou uma mensagem de erro
-            if (typeInformation)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("<------------------------------------->");
-                Console.WriteLine("| Preste Atenção no Valor informado!! |");
-                Console.WriteLine("<------------------------------------->");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("<------------------------------->");
-                Console.WriteLine("| Selecione uma opção Valida!!! |");
-                Console.WriteLine("<------------------------------->");
-            }
+            
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("");
+            Console.WriteLine($"<| {Frases[typeInformation]} |>");
+            Console.WriteLine("");
+
+
             Console.ResetColor();
             Console.WriteLine("Digite uma opção : ");
 
@@ -101,7 +103,7 @@ namespace Senbozaki_Bank.Financeiro
                         }
                         Console.Clear();
 
-                        Financeiro.Financeiro.OpcaoInicial();
+                        Financeiro.OpcaoInicial("1");
                     }
                     return;
                 case "2":
