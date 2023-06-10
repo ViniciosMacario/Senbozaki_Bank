@@ -68,7 +68,6 @@ namespace Senbozaki_Bank.Menu
             Console.WriteLine("0 - Sair");
             Console.WriteLine("1 - Financeiro");
             Console.WriteLine("2 - Gerar Relatório");
-            Console.WriteLine("3 - Help");
 
             //Recebendo opção escolhida do usuário
             Console.WriteLine("");
