@@ -2,4 +2,4 @@
 
 //Menu.GeracaoDeOpcoesMaster();
 
-Read.ReadData();
+Menu.GeracaoDeOpcoesMaster(); ;

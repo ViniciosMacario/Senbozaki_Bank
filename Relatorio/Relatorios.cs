@@ -46,13 +46,17 @@ namespace Senbozaki_Bank.Relatorio
         public static void ExibirContasCadastradas()
         {
             Console.WriteLine("Contas Cadastras:");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
-            Console.WriteLine("---");
+            
+            foreach(var Cliente in Read.ReadData())
+            {
+                Console.WriteLine("---------------------------------------------------");
+                Console.WriteLine($"Titular: {Cliente.Titular}                        ");
+                Console.WriteLine($"Numero da Agência: {Cliente.numeroDaAgencia}      ");
+                Console.WriteLine($"Numero da Conta: {Cliente.numeroDaConta}          ");
+                Console.WriteLine($"Saldo: {Cliente.saldo}                            ");
+                Console.WriteLine("---------------------------------------------------");
+
+            }
         }
     }
 }
