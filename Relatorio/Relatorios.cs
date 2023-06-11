@@ -45,9 +45,12 @@ namespace Senbozaki_Bank.Relatorio
         }
         public static void ExibirContasCadastradas()
         {
-            Console.WriteLine("Contas Cadastras:");
-            
-            foreach(var Cliente in Read.ReadData())
+            Console.WriteLine("Contas Cadastradas:");
+
+            // Caminho e nome do arquivo CSV
+            string path = "Contas Cadastradas.csv";
+
+            foreach (var Cliente in Read.ReadData())
             {
                 Console.WriteLine("---------------------------------------------------");
                 Console.WriteLine($"Titular: {Cliente.Titular}                        ");
@@ -55,7 +58,16 @@ namespace Senbozaki_Bank.Relatorio
                 Console.WriteLine($"Numero da Conta: {Cliente.numeroDaConta}          ");
                 Console.WriteLine($"Saldo: {Cliente.saldo}                            ");
                 Console.WriteLine("---------------------------------------------------");
+            }
 
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+
+                writer.WriteLine("Titular; Agencia; Conta; Saldo;");
+                foreach(var linha in Read.ReadData())
+                {
+                    writer.WriteLine($"{linha.Titular}; {linha.numeroDaAgencia}; {linha.numeroDaConta}; {linha.saldo};");
+                }
             }
         }
     }

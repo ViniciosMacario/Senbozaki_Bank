@@ -17,7 +17,7 @@ public class Read
                     saldo           = parts[2],
                     Titular         = parts[3]
                 }
-            );;
+            );
 
       }
 
