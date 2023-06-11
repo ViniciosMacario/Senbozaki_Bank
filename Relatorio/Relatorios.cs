@@ -99,9 +99,8 @@ namespace Senbozaki_Bank.Relatorio
                 case "3":
                     {
                         Console.Clear();
-                        Console.WriteLine("Converter para TXT");
+                        ExibirDadosTXT();
                         MenuRelatorio();
-
                     }
                     return;
                 case "4":
@@ -140,6 +139,19 @@ namespace Senbozaki_Bank.Relatorio
                 }
             }
         }
+        public static void ExibirDadosTXT()
+        {
+            string path = "Contas Cadastradas.txt";
+
+            using(StreamWriter writer = new StreamWriter(path))
+            {
+                writer.WriteLine("Titular; Agencia; Conta; Saldo");
+                foreach (var linha in Read.ReadData())
+                {
+                    writer.WriteLine($"{linha.Titular}; {linha.numeroDaAgencia}; {linha.numeroDaConta}; {linha.saldo};");
+                }
+            }
+        }
         public static void ExibirDadosConsole()
         {
             Console.WriteLine("Contas Cadastradas:");
@@ -159,7 +171,6 @@ namespace Senbozaki_Bank.Relatorio
 }
 
 /*
- Console.WriteLine("1 - Converter Relatório para Arquivo Excel");
  Console.WriteLine("2 - Converter Relatório para Arquivo de Texto");
  Console.WriteLine("3 - Converter Relatório para Json");
 */
