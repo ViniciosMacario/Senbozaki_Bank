@@ -26,10 +26,10 @@ public class Read
 
     public class Cliente
     {
+        public string? Titular           { get; set; }
         public string? numeroDaAgencia   { get; set; }
         public string? numeroDaConta     { get; set; }
         public string? saldo             { get; set; }
-        public string? Titular           { get; set; }
     }
 
 }

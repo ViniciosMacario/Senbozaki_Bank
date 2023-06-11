@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Senbozaki_Bank.Relatorio
@@ -106,7 +107,7 @@ namespace Senbozaki_Bank.Relatorio
                 case "4":
                     {
                         Console.Clear();
-                        Console.WriteLine("Converter para Json");
+                        ExibirDadosJSON();
                         MenuRelatorio();
                     }
                     return;
@@ -149,6 +150,19 @@ namespace Senbozaki_Bank.Relatorio
                 foreach (var linha in Read.ReadData())
                 {
                     writer.WriteLine($"{linha.Titular}; {linha.numeroDaAgencia}; {linha.numeroDaConta}; {linha.saldo};");
+                }
+            }
+        }
+        public static void ExibirDadosJSON()
+        {
+            string path = "Contas Cadastradas.json";
+
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach (var linha in Read.ReadData())
+                {
+                    string json = JsonSerializer.Serialize(linha);
+                    writer.WriteLine(json);
                 }
             }
         }
