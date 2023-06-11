@@ -78,7 +78,7 @@ namespace Senbozaki_Bank.Relatorio
                     return;
                 case "1":
                     {
-                        RelatoriosMenu.DesignacaoDeFuncao(OptionInput!);
+                        RelatoriosMenu.MenuRelatorio();
                     }
                     return;
                 case "2":
