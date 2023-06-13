@@ -24,6 +24,7 @@ public class Read
         return list;
   }
 
+    //Tipando o Objeto Cliente
     public class Cliente
     {
         public string? Titular           { get; set; }
