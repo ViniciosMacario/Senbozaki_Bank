@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,11 @@ namespace Senbozaki_Bank.SistemaDeLogin
 {
     public static class Autenticacao
     {
+        static List<LoginUser> contasCadastradasLoginuser = new()
+        {
+            new LoginUser("1515", "1598", "123")
+        };
+
 
 
         //Capturando valores e retornando um Objeto contendo os mesmos.
@@ -51,27 +57,32 @@ namespace Senbozaki_Bank.SistemaDeLogin
             Console.WriteLine("<----------------------------->");
 
             return new LoginUser(numeroDaAgencia!, numeroDaConta!, senha!);
-
         }
+
+
+
+
         //Login do Usuário Comum
         public static void LoginUser()
         {
             var user = LoginUserMenu();
-            Console.WriteLine(user.NAgencia);
-            Console.WriteLine(user.NConta);
-            Console.WriteLine(user.Senha);
-
+            if(contasCadastradasLoginuser.Contains(user))
+            {
+                Console.WriteLine("Usuário validado!");
+            }
+            else
+            {
+                Console.WriteLine("Senha invalida!");
+            }
         }
         public static void LoginAdmin()
         {
 
 
         }        
-
-
     }
 
-    public class LoginUser
+    public class LoginUser : IEquatable<LoginUser>
     {
         public string NConta { get; }
         public string NAgencia { get; }
@@ -84,8 +95,21 @@ namespace Senbozaki_Bank.SistemaDeLogin
             NAgencia = nAgencia;
         }
 
+        public bool Equals(LoginUser? obj)
+        {
+            if (obj == null) return false;
 
+            if(NAgencia == obj.NAgencia && NConta == obj.NConta && Senha == obj.Senha) return true;
+            
+            return false;
+        }
 
-
+        public override bool Equals(object? obj) => obj switch
+        {
+            null => false,
+            LoginUser user => Equals(user),
+            _ => base.Equals(obj)
+        };
+        public override int GetHashCode() => base.GetHashCode();
     }
 }
