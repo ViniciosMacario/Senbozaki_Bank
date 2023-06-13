@@ -183,8 +183,3 @@ namespace Senbozaki_Bank.Relatorio
         }
     }
 }
-
-/*
- Console.WriteLine("2 - Converter Relatório para Arquivo de Texto");
- Console.WriteLine("3 - Converter Relatório para Json");
-*/
