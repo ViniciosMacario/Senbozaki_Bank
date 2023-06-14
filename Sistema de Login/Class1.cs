@@ -4,16 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Senbozaki_Bank.SistemaDeLogin
 {
     public static class Autenticacao
     {
-        static List<LoginUser> contasCadastradasLoginuser = new()
-        {
-            new LoginUser("1515", "1598", "123")
-        };
+        //State se o usuário está Autenticado ou não.
+        public static bool StateAutenticacao = false;
 
+        //State do nível de acesso do usuário, nível 0 = comum, 1 = admin.
+        public static int LevelAutenticao   = 0;
+
+        static readonly Dictionary<LoginUser, string> contasCadastradasLoginUserDicionary = new()
+        {
+            { new LoginUser("151", "1598", "123"), "Vinicios" }
+        };
 
 
         //Capturando valores e retornando um Objeto contendo os mesmos.
@@ -31,10 +38,9 @@ namespace Senbozaki_Bank.SistemaDeLogin
             var numeroDaConta = Console.ReadLine();
 
             Console.WriteLine("<----------------------------->");
-
             Console.Write("Senha:");
 
-
+            
             ConsoleKeyInfo TeclaDigitada;
             string senha = "";
 
@@ -58,17 +64,16 @@ namespace Senbozaki_Bank.SistemaDeLogin
 
             return new LoginUser(numeroDaAgencia!, numeroDaConta!, senha!);
         }
-
-
-
-
+        
         //Login do Usuário Comum
         public static void LoginUser()
         {
             var user = LoginUserMenu();
-            if(contasCadastradasLoginuser.Contains(user))
+            //contasCadastradasLoginuser.Contains(user)
+            if (contasCadastradasLoginUserDicionary.ContainsKey(user))
             {
-                Console.WriteLine("Usuário validado!");
+                StateAutenticacao = true;
+                Console.WriteLine($"Usuário {contasCadastradasLoginUserDicionary[user]} validado!");
             }
             else
             {
@@ -84,23 +89,26 @@ namespace Senbozaki_Bank.SistemaDeLogin
 
     public class LoginUser : IEquatable<LoginUser>
     {
-        public string NConta { get; }
-        public string NAgencia { get; }
-        public string Senha { get; set; }
+        public string NumeroAgencia  { get; }
+        public string NumeroConta    { get; }
+        public string Senha          { get; }
 
-        public LoginUser(string nConta, string nAgencia, string senha)
+        //Criando objeto do Tipo LoginUser
+        public LoginUser(string nAgencia, string nConta, string senha)
         {
+            NumeroConta = nConta;
+            NumeroAgencia = nAgencia;
             Senha = senha;
-            NConta = nConta;
-            NAgencia = nAgencia;
         }
 
+        //Comparador Personalizado 
         public bool Equals(LoginUser? obj)
         {
             if (obj == null) return false;
 
-            if(NAgencia == obj.NAgencia && NConta == obj.NConta && Senha == obj.Senha) return true;
-            
+            //Se os valores dessas propriedades forem iguais em ambos os objetos, eles serão considerados iguais.
+            if (NumeroAgencia == obj.NumeroAgencia && NumeroConta == obj.NumeroConta && Senha == obj.Senha) return true;
+
             return false;
         }
 
@@ -110,6 +118,11 @@ namespace Senbozaki_Bank.SistemaDeLogin
             LoginUser user => Equals(user),
             _ => base.Equals(obj)
         };
-        public override int GetHashCode() => base.GetHashCode();
+        public override int GetHashCode()
+        {
+            // hash é um algoritmo que mapeia dados de tamanho variável para um valor de tamanho fixo, geralmente um valor numérico ou uma sequência de bytes.
+            //A palavra-chave unchecked indica que o cálculo do código hash não levanta uma exceção se ocorrer um estouro de inteiro.
+            return HashCode.Combine(NumeroAgencia, NumeroConta, Senha);
+        }
     }
 }
