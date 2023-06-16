@@ -17,9 +17,14 @@ namespace Senbozaki_Bank.SistemaDeLogin
         //State do nível de acesso do usuário, nível 0 = comum, 1 = admin.
         public static int LevelAutenticao   = 0;
 
+        //Usuários Cadastrados
         static readonly Dictionary<LoginUser, string> contasCadastradasLoginUserDicionary = new()
         {
             { new LoginUser("151", "1598", "123"), "Vinicios" }
+        };
+        static readonly Dictionary<LoginAdmin, string> contasCadastradasLoginAdminDicionary = new()
+        {
+            { new LoginAdmin("Email", "123"), "Vinicios" }
         };
 
 
@@ -64,7 +69,42 @@ namespace Senbozaki_Bank.SistemaDeLogin
 
             return new LoginUser(numeroDaAgencia!, numeroDaConta!, senha!);
         }
-        
+
+
+        //Capturando valores e retornando um Objeto contendo os mesmos.
+        public static LoginAdmin LoginAdminMenu()
+        {
+
+            Console.WriteLine("<----------------------------->");
+
+            Console.Write("Nome:");
+            var nome = Console.ReadLine();
+
+            Console.WriteLine("<----------------------------->");
+            Console.Write("Senha:");
+
+            ConsoleKeyInfo TeclaDigitada;
+            string senha = "";
+
+            do
+            {
+                TeclaDigitada = Console.ReadKey(true);
+
+                if (TeclaDigitada.Key != ConsoleKey.Enter)
+                {
+                    senha += TeclaDigitada.KeyChar;
+                }
+
+            } while (TeclaDigitada.Key != ConsoleKey.Enter);
+
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("<----------------------------->");
+
+            return new LoginAdmin(nome!, senha!);
+        }
+
+
+
         //Login do Usuário Comum
         public static void LoginUser()
         {
@@ -80,13 +120,27 @@ namespace Senbozaki_Bank.SistemaDeLogin
                 Console.WriteLine("Senha invalida!");
             }
         }
+
+        //Login do Usuário Admin
         public static void LoginAdmin()
         {
+            var user = LoginAdminMenu();
 
-
+            //contasCadastradasLoginuser.Contains(user)
+            if (contasCadastradasLoginAdminDicionary.ContainsKey(user))
+            {
+                StateAutenticacao = true;
+                Console.WriteLine($"Admin {contasCadastradasLoginAdminDicionary[user]} validado!");
+            }
+            else
+            {
+                Console.WriteLine("Senha invalida!");
+            }
         }        
     }
 
+
+    //Definição de Tipos de usuários e suas devidas comparações de objetos 
     public class LoginUser : IEquatable<LoginUser>
     {
         public string NumeroAgencia  { get; }
@@ -123,6 +177,42 @@ namespace Senbozaki_Bank.SistemaDeLogin
             // hash é um algoritmo que mapeia dados de tamanho variável para um valor de tamanho fixo, geralmente um valor numérico ou uma sequência de bytes.
             //A palavra-chave unchecked indica que o cálculo do código hash não levanta uma exceção se ocorrer um estouro de inteiro.
             return HashCode.Combine(NumeroAgencia, NumeroConta, Senha);
+        }
+    }
+    public class LoginAdmin : IEquatable<LoginAdmin>
+    {
+        public string Email { get; }
+        public string Senha { get; }
+
+        //Criando objeto do Tipo LoginAdmin
+        public LoginAdmin(string email, string senha)
+        {
+            Email = email;
+            Senha = senha;
+        }
+
+        //Comparador Personalizado 
+        public bool Equals(LoginAdmin? obj)
+        {
+            if (obj == null) return false;
+
+            //Se os valores dessas propriedades forem iguais em ambos os objetos, eles serão considerados iguais.
+            if (Email == obj.Email && Senha == obj.Senha) return true;
+
+            return false;
+        }
+
+        public override bool Equals(object? obj) => obj switch
+        {
+            null => false,
+            LoginAdmin user => Equals(user),
+            _ => base.Equals(obj)
+        };
+        public override int GetHashCode()
+        {
+            // hash é um algoritmo que mapeia dados de tamanho variável para um valor de tamanho fixo, geralmente um valor numérico ou uma sequência de bytes.
+            //A palavra-chave unchecked indica que o cálculo do código hash não levanta uma exceção se ocorrer um estouro de inteiro.
+            return HashCode.Combine(Email, Senha);
         }
     }
 }
