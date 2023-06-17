@@ -24,7 +24,7 @@ namespace Senbozaki_Bank.SistemaDeLogin
         };
         static readonly Dictionary<LoginAdmin, string> contasCadastradasLoginAdminDicionary = new()
         {
-            { new LoginAdmin("Email", "123"), "Vinicios" }
+            { new LoginAdmin("Teste@teste.com", "123"), "Vinicios"}
         };
 
 
@@ -114,6 +114,7 @@ namespace Senbozaki_Bank.SistemaDeLogin
             {
                 StateAutenticacao = true;
                 Console.WriteLine($"Usuário {contasCadastradasLoginUserDicionary[user]} validado!");
+                Menu.Menu.GeracaoDeOpcoesMaster();
             }
             else
             {
@@ -131,6 +132,8 @@ namespace Senbozaki_Bank.SistemaDeLogin
             {
                 StateAutenticacao = true;
                 Console.WriteLine($"Admin {contasCadastradasLoginAdminDicionary[user]} validado!");
+                Menu.Menu.GeracaoDeOpcoesMaster();
+
             }
             else
             {
