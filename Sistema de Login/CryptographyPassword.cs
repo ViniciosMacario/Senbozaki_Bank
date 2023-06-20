@@ -38,19 +38,16 @@ namespace Senbozaki_Bank.Sistema_de_Login
             /*
             SHA512:é um algoritmo criptográfico amplamente utilizado para calcular o hash de dados.
             */
-            using (var sha512 = SHA512.Create())
-            {
-                byte[] passwordByte = Encoding.UTF8.GetBytes(senha);
-                byte[] saltByte = Convert.FromBase64String(CreateSalt());
+            byte[] passwordByte = Encoding.UTF8.GetBytes(senha);
+            byte[] saltByte = Convert.FromBase64String(CreateSalt());
 
-                byte[] passwordWithSaltBytes = new byte[passwordByte.Length + saltByte.Length];
-                Array.Copy(passwordByte, passwordWithSaltBytes, passwordByte.Length);
-                Array.Copy(saltByte,0, passwordWithSaltBytes, passwordByte.Length, saltByte.Length);
+            byte[] passwordWithSaltBytes = new byte[passwordByte.Length + saltByte.Length];
+            Array.Copy(passwordByte, passwordWithSaltBytes, passwordByte.Length);
+            Array.Copy(saltByte, 0, passwordWithSaltBytes, passwordByte.Length, saltByte.Length);
 
-                byte[] hashPassword = sha512.ComputeHash(passwordByte);
+            byte[] hashPassword = SHA512.HashData(passwordByte);
 
-                return Convert.ToBase64String(hashPassword);
-            }
+            return Convert.ToBase64String(hashPassword);
         }
 
     }
