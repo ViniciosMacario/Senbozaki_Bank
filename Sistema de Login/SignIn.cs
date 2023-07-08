@@ -118,6 +118,15 @@ namespace Senbozaki_Bank.Sistema_de_Login
             }
         }
 
+        //Usuários Cadastrados
+        static readonly Dictionary<LoginUser, string> contasCadastradasLoginUserDicionary = new()
+        {
+            { new LoginUser("151", "1598", "123"), "Vinicios" }
+        };
+        static readonly Dictionary<LoginAdmin, string> contasCadastradasLoginAdminDicionary = new()
+        {
+            { new LoginAdmin("Teste@teste.com", "123"), "Vinicios"}
+        };
 
         /* 
          Capturando valores e retornando um Objeto contendo os mesmos.
@@ -206,6 +215,12 @@ namespace Senbozaki_Bank.Sistema_de_Login
             {
                 StateAutenticacao = true;
                 Console.WriteLine($"Usuário {contasCadastradasLoginUserDicionary[user]} validado!");
+                for (var i = 3; i >= 1; i--)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine($"Você será transferido para outra seção em {i}s");
+                };
+                Console.Clear();
                 Menu.Menu.GeracaoDeOpcoesMaster();
             }
             else
